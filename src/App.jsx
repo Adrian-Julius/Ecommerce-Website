@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import "semantic-ui-css/semantic.min.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+//CONTEXT COMPONENT
+import CartContext from "./Components/CartContext";
+
+// ECOMMERCE COMPONENTS
+import Ecommerce from "./Components/Ecommerce";
+import Home from "./Components/Home";
+import About from "./Components/About";
+import Products from "./Components/Products";
+import ContactUs from "./Components/ContactUs";
+import Cart from "./Components/Cart";
+import ErrorPath from "./Components/ErrorPath";
+
+// REACT ROUTER
+const myRouter = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Ecommerce />,
+      errorElement: <ErrorPath />,
+      children: [
+        { index: true, element: <Home /> }, //index: true     // render renders when the parent path matches exactly
+        { path: "about", element: <About /> },
+        { path: "products", element: <Products /> },
+        { path: "contact", element: <ContactUs /> },
+        { path: "cart", element: <Cart /> },
+      ],
+    },
+  ],
+  {
+    basename: "/ecommerce-website", 
+  }
+);
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <CartContext>
+        <RouterProvider router={myRouter} />
+      </CartContext>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
