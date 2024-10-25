@@ -101,7 +101,7 @@ function Cart() {
               <div>
                 <h1 className="text-4xl my-12">"No items in your cart yet."</h1>
                 <NavLink
-                  to={"products"}
+                  to={"/products"}
                   onClick={() => settingCategory("allItems")}
                   className="text-2xl lg:text-4xl text-black px-5 py-3 my-3 border-[3px] border-[tomato] rounded-3xl hover:bg-[tomato] duration-300"
                 >
